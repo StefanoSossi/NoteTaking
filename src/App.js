@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { decrement, increment } from "./reducers/cartSlice";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const count = useSelector((state) => state.cart.value);
+	const dispatch = useDispatch();
+
+	return (
+		<div className="App">
+			<header className="App-header">
+				<h2> Cart items : {count} </h2>
+				<div>
+					<button onClick={() => dispatch(decrement())}> - </button>
+					<button onClick={() => dispatch(increment())}> + </button>
+				</div>
+			</header>
+		</div>
+	);
 }
 
 export default App;
