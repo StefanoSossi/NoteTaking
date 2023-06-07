@@ -1,23 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const cartSlice = createSlice({
-	name: "counter",
+	name: "cart",
 	initialState: {
-		value: 0,
+		notes: [
+			{
+				id: 0,
+				title: "sda",
+				note: "aaa",
+				date: "",
+				status: "",
+			},
+			{
+				id: 1,
+				title: "asdsda",
+				note: "ddd",
+				date: "",
+				status: "",
+			},
+		],
 	},
 	reducers: {
-		increment: (state) => {
-			state.value += 1;
+		addNote: (state, action) => {
+			state.notes = [...state.notes, action.payload];
 		},
-		decrement: (state) => {
-			state.value -= 1;
+		deleteNote: (state, action) => {
+			state.notes = state.notes.filter((note) => note.id !== action.payload);
 		},
-		incrementByAmount: (state, action) => {
-			state.value += action.payload;
+		editNote: (state, action) => {
+			state.notes[action.payload.index] = action.payload.editedNote;
 		},
 	},
 });
 
-export const { increment, decrement, incrementByAmount } = cartSlice.actions;
+export const { addNote, deleteNote, editNote } = cartSlice.actions;
 
 export default cartSlice.reducer;

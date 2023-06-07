@@ -1,18 +1,39 @@
 import "./App.css";
 import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "./reducers/cartSlice";
+import { addNote } from "./reducers/cartSlice";
+import NoteCard from "./components/noteCard/noteCard";
 
 function App() {
-	const count = useSelector((state) => state.cart.value);
+	const notes = useSelector((state) => state.cart.notes);
 	const dispatch = useDispatch();
 
 	return (
 		<div className="App">
 			<header className="App-header">
-				<h2> Cart items : {count} </h2>
+				<h2>
+					Cart items:
+					{notes.map((note, index) => (
+						<NoteCard key={index} note={note} index={index}></NoteCard>
+					))}
+				</h2>
 				<div>
-					<button onClick={() => dispatch(decrement())}> - </button>
-					<button onClick={() => dispatch(increment())}> + </button>
+					<button
+						onClick={() =>
+							dispatch(
+								addNote({
+									newNote: {
+										id: 3,
+										title: "3sda",
+										note: "3aaa",
+										date: "3",
+										status: "3",
+									},
+								})
+							)
+						}
+					>
+						----
+					</button>
 				</div>
 			</header>
 		</div>
